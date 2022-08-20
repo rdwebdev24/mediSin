@@ -1,6 +1,5 @@
 import pickle
 from typing import Union
-from warnings import catch_warnings
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 from starlette.responses import JSONResponse
