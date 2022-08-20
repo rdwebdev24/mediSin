@@ -1,14 +1,11 @@
-from base64 import encode
 import pickle
 from typing import Union
+from warnings import catch_warnings
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
 from starlette.responses import JSONResponse
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import LabelEncoder
 
 loaded_model = pickle.load(open('model.h5', 'rb'))
 
@@ -30,15 +27,19 @@ data_dict = {
 }
 
 def predictDisease(symptoms):
-    symptoms = symptoms.split(",")
-    input_data = [0] * len(data_dict["symptom_index"])
-    for symptom in symptoms:
-        index = data_dict["symptom_index"][symptom]
-        input_data[index] = 1
+    try:
+        symptoms = symptoms.split(",")
+        input_data = [0] * len(data_dict["symptom_index"])
+        for symptom in symptoms:
+            index = data_dict["symptom_index"][symptom]
+            input_data[index] = 1
          
-    input_data = np.array(input_data).reshape(1,-1)
-    svm_prediction = data_dict["predictions_classes"][loaded_model.predict(input_data)[0]] 
-    return svm_prediction
+        input_data = np.array(input_data).reshape(1,-1)
+        svm_prediction = data_dict["predictions_classes"][loaded_model.predict(input_data)[0]] 
+    except:
+        return "invalid input"
+    else:
+        return svm_prediction
  
 
 app = FastAPI()
