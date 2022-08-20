@@ -1,0 +1,16 @@
+* {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box
+}
+
+.navbar-toggler{
+     background-color: #fff !important;
+}
+.search-bar{
+     display: flex;
+     flex-direction: row;
+     justify-content: center;
+     align-items: center;
+     gap: 1rem;
+}
