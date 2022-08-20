@@ -43,12 +43,7 @@ def predictDisease(symptoms):
 
 app = FastAPI()
 
-origins = [
-    "http://localhost.tiangolo.com",
-    "https://localhost.tiangolo.com",
-    "http://localhost",
-    "http://localhost:8080",
-]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
